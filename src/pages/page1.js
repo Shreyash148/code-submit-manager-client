@@ -52,7 +52,7 @@ export default function Page1() {
       } catch (error) {
         console.log(error);
       }
-      await axios.post("https://code-submit-manager-server-khai4mm6w.vercel.app/api/add",{
+      await axios.post("https://code-submit-manager-server.vercel.app/api/add",{
         language:submission.language,
         sourcecode:submission.sourcecode,
         stdin:submission.stdin,
