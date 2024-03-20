@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+a {
+    text-decoration: none;
+}
+
+button{
+    cursor: pointer;
+}
+
+img {
+    border: none !important
+}
+.about{
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-size: 16px;
+    line-height: normal;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    color:#646363;
+}
+
+.navbar{
+    display: flex;
+    /* padding-block: 10px; */
+    padding-inline : 6.5vw;
+    justify-content: center;
+    box-shadow: 0px 4px 4px 0px #0b0a0a40;
+    background-color: white;
+    /* position: fixed; */
+    font-weight: bold;
+}
+
+.hidde{
+    display: flex;
+}
+.selectedpage {
+    display: flex;
+    padding: 20px 12px;
+justify-content: center;
+align-items: center;
+/* gap: 10px; */
+border-bottom: 4px solid var(--foundation-blue-normal, #ff4141);
+color : #ff4141;
+}
+
+.selectedpage:hover {
+    color : #ff4141;
+
+}
+.clear { 
+    /* color : #3A3A3A; */
+    padding-block: 3px;
+    display: inline-flex;
+    padding: 20px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.clear:hover {
+    color: #f09d9d;
+}
+  
