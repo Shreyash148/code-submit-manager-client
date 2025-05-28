@@ -4,7 +4,7 @@
 .manage-box table{
   width:100%;
   border-collapse: collapse;
-  box-shadow: 2px 2px 4px 2px grey;
+  box-shadow: 2px 2px 4px 2px rgb(215, 173, 173);
   text-align: center;
 }
 .manage-box th{
