@@ -16,7 +16,11 @@ export default function Page1() {
     setSubmission((prev)=>({...prev,[e.target.name]:e.target.value}))
   }
 
-  const options = {
+// Remove 'X-RapidAPI-Key' from the frontend entirely, and call your own backend endpoint instead
+headers: {
+  'Content-Type': 'application/json'
+}
+// Instruct your backend to add the API key securely and proxy the request
     method: 'POST',
     url: 'https://judge0-ce.p.rapidapi.com/submissions',
     params: {
@@ -33,7 +37,12 @@ export default function Page1() {
     data: {
       language_id: submission.language,
       source_code: btoa(submission.sourcecode),
-      stdin: btoa(submission.stdin)
+// If you set base64_encoded: 'false', pass plain text
+data: {
+  language_id: submission.language,
+  source_code: submission.sourcecode,
+  stdin: submission.stdin
+}
     }
   };
 
@@ -41,9 +50,16 @@ export default function Page1() {
     e.preventDefault();
     try{
       let decodedoutput;
-      try {
+const encodedString = res.data.stdout;
+// rest of the code...
         const res=await axios.request(options);
-        const endcodedString=res.data.stdout
+if (res.data.stdout) {
+  decodedoutput = atob(res.data.stdout);
+} else if (res.data.stderr) {
+  decodedoutput = atob(res.data.stderr);
+} else {
+  decodedoutput = '';
+}
         if(endcodedString!=null){
           decodedoutput=atob(endcodedString)
         }else{
@@ -53,7 +69,8 @@ export default function Page1() {
         console.log(error);
       }
       await axios.post("https://code-submit-manager-server.vercel.app/api/add",{
-        language:submission.language,
+// Example: alert or display the decoded output
+alert(`Result:\n${decodedoutput}`);
         sourcecode:submission.sourcecode,
         stdin:submission.stdin,
         username:submission.username,
@@ -69,7 +86,11 @@ export default function Page1() {
     <>
       <NavbarNew page="/" />
       <form className="form-container" onSubmit={handleSubmit}>
-        <div className='display'>
+if (!submission.username || !submission.sourcecode || !submission.language) {
+  alert("Please fill in all required fields.");
+  return;
+}
+// Add more checks as needed
         <div className='name'>
           <label htmlFor="inputName" >Username:</label>
           <input type="text" name="username" placeholder="harry" onChange={handleChange} required/>
@@ -77,7 +98,18 @@ export default function Page1() {
         <div className='lang'>
           <label htmlFor="lang">Language:</label>
           <select name='language' onChange={handleChange} required>
-            <option value="">-- Select Language --</option>
+// In App.css
+.code textarea {
+  width: 100%;
+  min-height: 200px;
+  font-family: monospace;
+}
+
+---
+
+No issues in the `src/App.css` file affecting quality, security, or maintainability, aside from the inline style moved above.
+
+Let me know if you need further clarification or deeper suggestions.
             <option value={52}>C++</option>
             <option value={62}>Java</option>
             <option value={71}>Python</option>
