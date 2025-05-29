@@ -13,7 +13,6 @@ export default function Page1() {
     username:""
   })
   const handleChange=(e)=>{
-    setSubmission((prev)=>({...prev,[e.target.name]:e.target.value}))
   }
 
   const options = {
