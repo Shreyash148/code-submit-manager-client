@@ -11,12 +11,12 @@ export default function Page1() {
     sourcecode:"",
     stdin:"",
     username:""
-  })
+Implement handleChange to set state on input changes.
   const handleChange=(e)=>{
     setSubmission((prev)=>({...prev,[e.target.name]:e.target.value}))
   }
 
-  const options = {
+Add stdin to the data sent to Judge0.
     method: 'POST',
     url: 'https://judge0-ce.p.rapidapi.com/submissions',
     params: {
