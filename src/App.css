@@ -16,7 +16,7 @@
   border-bottom: 1px solid grey;
 }
 
-/* page1.css */
+line-height: normal;
 .form-container {
   margin: 0 auto;
   padding-block: 4rem;
@@ -58,7 +58,7 @@
   cursor: pointer;
   font-size: large;
 }
-
+min-width: 0;
 .form-container button[type="submit"]:hover {
   background-color: blue;
 }
