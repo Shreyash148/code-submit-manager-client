@@ -21,6 +21,127 @@ params: {
       base64_encoded: 'true',
       fields: '*',
     },
+    data: {
+      language_id: submission.language,
+      source_code: btoa(submission.sourcecode),
+      stdin: btoa(submission.stdin)
+    }
+
+---
+
+Line: 24  
+Severity: Critical  
+Issue: The RapidAPI Key is hardcoded in the source. This is a severe security vulnerability as API keys should never be committed to source control.  
+Suggestion: Move this key to an environment variable such as `REACT_APP_RAPIDAPI_KEY` and access it via `process.env`.
+
+      'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY,
+
+---
+
+Line: 40  
+Severity: Minor  
+Issue: Typo in the variable name `endcodedString`—it should be `encodedString`. Consistent, correct variable names improve maintainability and readability.  
+Suggestion: Rename `endcodedString` to `encodedString`.
+
+        const encodedString = res.data.stdout;
+        if (encodedString != null) {
+          decodedoutput = atob(encodedString);
+        } else {
+          decodedoutput = atob(res.data.stderr);
+        }
+
+---
+
+Line: 45  
+Severity: Major  
+Issue: Decoding `res.data.stderr` without a null/undefined check, or validating that its content requires decoding, may raise exceptions. Both stdout and stderr could also be null.  
+Suggestion: Add safe checks and ensure decoding only if content exists.
+
+        if (res.data.stdout) {
+          decodedoutput = atob(res.data.stdout);
+        } else if (res.data.stderr) {
+          decodedoutput = atob(res.data.stderr);
+        } else {
+          decodedoutput = '';
+        }
+
+---
+
+Line: 53  
+Severity: Minor  
+Issue: If the API call to persist results fails, the user receives no feedback — only a console log. This impacts user experience and error traceability.  
+Suggestion: Use `alert` or an in-UI message upon failure.
+
+    } catch (err) {
+      alert("An error occurred during submission. Please try again.");
+      console.log(err);
+    }
+
+---
+
+Line: 78, 85, 91, 96  
+Severity: Info  
+Issue: Using raw numeric language IDs in the JSX (`52`, `62`, `71`, `63`) is less maintainable and can introduce magic number bugs if/when IDs change or expand.  
+Suggestion: Use a language ID map/constant so the source of truth is in one place.
+
+const LANGUAGE_IDS = {
+  'C++': 52,
+  'Java': 62,
+  'Python': 71,
+  'Javascript': 63,
+};
+// Then in the <select>:
+<option value={LANGUAGE_IDS["C++"]}>C++</option>
+<option value={LANGUAGE_IDS["Java"]}>Java</option>
+<option value={LANGUAGE_IDS["Python"]}>Python</option>
+<option value={LANGUAGE_IDS["Javascript"]}>Javascript</option>
+
+---
+
+Line: 111  
+Severity: Minor  
+Issue: Use of inline styles for layout is not scalable for larger codebases. It is better to use a CSS class for maintainability and theming.  
+Suggestion: Extract to a className and place styling in CSS.
+
+<div className="button-container">
+  <button type="submit">Submit</button>
+</div>
+/* Add in App.css or component CSS */
+.button-container {
+  text-align: center;
+  padding-block: 3rem;
+}
+
+---
+
+# MermaidJS Sequence Diagram
+
+sequenceDiagram
+  participant U as User
+  participant R as React App (page1.js)
+  participant J as Judge0 API
+  participant B as Backend API
+
+  U->>R: Fill Form and Submit
+  R->>J: POST /submissions (code, language, stdin)
+  J-->>R: Response (output or error)
+  R->>B: POST /api/add (username, code, stdin, language)
+  B-->>R: Submission saved
+  R-->>U: Alert "Submission Done"\nNavigate to /page2
+
+---
+
+**Summary of Main Points**
+
+- **Critical:** Never hardcode API keys or secrets; use environment variables.
+- **Major:** Input encoding and `base64_encoded` must always match. Always check for the existence and correctness of fields before decoding outputs.
+- **Minor:** Provide user notifications on all errors, not just console logs.
+- **Info:** Remove magic numbers for language IDs and migrate all inline styles to CSS classes for maintainability.
+
+Let me know if you need specific example refactorings or additional security guidance!
+      base64_encoded: 'true',
+      fields: '*',
+    },
     // ... and keep `btoa()`
 **OR**
     data: {
