@@ -16,9 +16,30 @@ export default function Page1() {
     setSubmission((prev)=>({...prev,[e.target.name]:e.target.value}))
   }
 
-  const options = {
+// Remove all rapidapi key usage from the frontend.
+// Replace all calls to 'https://judge0-ce.p.rapidapi.com/submissions' with your backend endpoint, e.g.:
+const response = await axios.post('/api/submit', {
+  language_id: submission.language,
+  source_code: submission.sourcecode,
+  stdin: submission.stdin
+});
+
+---
     method: 'POST',
-    url: 'https://judge0-ce.p.rapidapi.com/submissions',
+const options = {
+  method: 'POST',
+  url: '/api/submit', // Your backend proxy endpoint
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  data: {
+    language_id: submission.language,
+    source_code: submission.sourcecode,
+    stdin: submission.stdin
+  }
+};
+
+---
     params: {
       base64_encoded: 'true',
       fields: '*',
@@ -28,7 +49,13 @@ export default function Page1() {
       'content-type': 'application/json',
       'Content-Type': 'application/json',
       'X-RapidAPI-Key': '768be3d199msh0cf59e6e372e153p131e34jsn3a97a3b820b4',
-      'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+data: {
+  language_id: submission.language,
+  source_code: submission.sourcecode,
+  stdin: submission.stdin
+}
+
+---
     },
     data: {
       language_id: submission.language,
@@ -38,17 +65,24 @@ export default function Page1() {
   };
 
   const handleSubmit=async(e)=>{
-    e.preventDefault();
+decodedoutput = res.data.stdout || res.data.stderr || '';
+
+---
     try{
       let decodedoutput;
       try {
         const res=await axios.request(options);
         const endcodedString=res.data.stdout
-        if(endcodedString!=null){
+const res = await axios.request(options);
+const output = res.data.stdout || res.data.stderr || '';
+
+---
           decodedoutput=atob(endcodedString)
         }else{
           decodedoutput=atob(res.data.stderr)
-        }
+// Store `decodedoutput` in state and render it in your component instead of an alert.
+
+---
       } catch (error) {
         console.log(error);
       }
@@ -57,7 +91,16 @@ export default function Page1() {
         sourcecode:submission.sourcecode,
         stdin:submission.stdin,
         username:submission.username,
-        stdout:decodedoutput
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!submission.username || !submission.sourcecode || !submission.language) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+  // continue with API calls...
+}
+
+---
       })
       alert("Submission Done");
       navigate("/page2");
@@ -80,7 +123,15 @@ export default function Page1() {
             <option value="">-- Select Language --</option>
             <option value={52}>C++</option>
             <option value={62}>Java</option>
-            <option value={71}>Python</option>
+<select name='language' onChange={handleChange} required>
+  <option value="" disabled selected>-- Select Language --</option>
+  <option value={52}>C++</option>
+  <option value={62}>Java</option>
+  <option value={71}>Python</option>
+  <option value={63}>Javascript</option>
+</select>
+
+---
             <option value={63}>Javascript</option>
           </select>
         </div>
@@ -98,7 +149,12 @@ export default function Page1() {
         <div style={{textAlign:"center",paddingBlock:"3rem"}}>
           <button type="submit">Submit</button>
         </div>
-      </form>
+// Remove lines like:
+// In App.css
+// .code textarea { ... }
+// from JSX and place in App.css or proper comments.
+
+---
     </>
   );
 }
