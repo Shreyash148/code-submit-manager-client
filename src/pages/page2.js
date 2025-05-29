@@ -11,7 +11,6 @@ export default function Page2() {
     const fetchSubmissions= async() => {
       try{
         const res= await axios.get("https://code-submit-manager-server.vercel.app/api/show");
-        setSubmission(res.data);
       }catch(err){
         console.log(err);
       }
