@@ -49,7 +49,6 @@ const convertdate=(date)=>{
                 <td>{submission.username}</td>
                 <td>{submission.language===52?"C++":submission.language===71?"Python":submission.language===62?"Java":submission.language===63?"Javascript":"N/A"}</td>
                 <td>{submission.stdin}</td>
-                <td>{submission.sourcecode.substring(0,100)}</td>
                 <td>{submission.stdout}</td>
               </tr>
             ))}
