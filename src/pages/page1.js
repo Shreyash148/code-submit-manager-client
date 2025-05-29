@@ -17,7 +17,7 @@ export default function Page1() {
   }
 
   const options = {
-    method: 'POST',
+    url: 'https://judge0-ce.p.rapidapi.com/submissions',
     params: {
       base64_encoded: 'false',
       fields: '*',
