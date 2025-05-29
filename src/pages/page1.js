@@ -30,7 +30,6 @@ export default function Page1() {
     data: {
       language_id: submission.language,
       source_code: btoa(submission.sourcecode),
-      stdin: btoa(submission.stdin)
     }
   };
 
