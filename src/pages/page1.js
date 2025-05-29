@@ -99,6 +99,6 @@ export default function Page1() {
           <button type="submit">Submit</button>
         </div>
       </form>
-    </>
+Minimize use of inline styles, unless dynamic.
   );
 }
