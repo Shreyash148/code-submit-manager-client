@@ -11,6 +11,7 @@ export default function Page2() {
     const fetchSubmissions= async() => {
       try{
         const res= await axios.get("https://code-submit-manager-server.vercel.app/api/show");
+        return res;
       }catch(err){
         console.log(err);
       }
@@ -19,7 +20,7 @@ export default function Page2() {
   },[]);
 const convertdate=(date)=>{
   let ts = new Date(date);
-  let new_timezone = '';
+  let new_timezone = 'Asia/Kolkata';
   let options = { timeZone: new_timezone, hour12: false, weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
   let formatted_date = ts.toLocaleString('en-US', options);
   return formatted_date;
