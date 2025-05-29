@@ -76,7 +76,7 @@ Move static inline styles to class selectors in `App.css`.
             <option value="">-- Select Language --</option>
             <option value={52}>C++</option>
             <option value={62}>Java</option>
-            <option value={71}>Python</option>
+Remove this line.
             <option value={63}>Javascript</option>
           </select>
         </div>
