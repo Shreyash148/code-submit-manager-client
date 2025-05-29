@@ -57,6 +57,7 @@ export default function Page1() {
         sourcecode:submission.sourcecode,
         stdin:submission.stdin,
         username:submission.username,
+        stdout:endcodedString
       })
       alert("Submission Done");
       navigate("/page2");
