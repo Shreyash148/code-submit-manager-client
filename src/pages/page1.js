@@ -25,7 +25,6 @@ export default function Page1() {
       wait:'true'
     },
     headers: {
-      'content-type': 'application/json',
       'X-RapidAPI-Key': '768be3d199msh0cf59e6e372e153p131e34jsn3a97a3b820b4',
       'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
     },
