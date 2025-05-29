@@ -19,7 +19,7 @@ export default function Page1() {
   const options = {
     method: 'POST',
     params: {
-      base64_encoded: 'false',
+Use a secure proxy/backend to keep API keys secret and remove them from frontend code.
       fields: '*',
     },
     headers: {
