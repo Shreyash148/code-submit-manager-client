@@ -11,12 +11,12 @@ export default function Page1() {
     sourcecode:"",
     stdin:"",
     username:""
-  })
+Implement handleChange to set state on input changes.
   const handleChange=(e)=>{
     setSubmission((prev)=>({...prev,[e.target.name]:e.target.value}))
   }
 
-  const options = {
+Validate `submission.sourcecode` before encoding. Also, it's not clear why source code is being base64 encoded when the API field is `base64_encoded=false`. This inconsistency could cause issues.
     method: 'POST',
     url: 'https://judge0-ce.p.rapidapi.com/submissions',
     params: {
