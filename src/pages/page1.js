@@ -13,11 +13,11 @@ export default function Page1() {
     username:""
   })
   const handleChange=(e)=>{
+    setSubmission((prev)=>({...prev,[e.target.name]:e.target.value}))
   }
 
   const options = {
     method: 'POST',
-    url: 'https://judge0-ce.p.rapidapi.com/submissions',
     params: {
       base64_encoded: 'false',
       fields: '*',
@@ -30,6 +30,7 @@ export default function Page1() {
     data: {
       language_id: submission.language,
       source_code: btoa(submission.sourcecode),
+      stdin: btoa(submission.stdin)
     }
   };
 
