@@ -17,7 +17,127 @@ export default function Page1() {
   }
 const options = {
     method: 'POST',
-    url: 'https://judge0-ce.p.rapidapi.com/submissions',
+params: {
+      base64_encoded: 'true',
+      fields: '*',
+    },
+    // ... and keep `btoa()`
+**OR**
+    data: {
+      language_id: submission.language,
+      source_code: submission.sourcecode,
+      stdin: submission.stdin
+    }
+
+---
+
+Line: 24  
+Severity: Critical  
+Issue: API key is hardcoded. This is a significant security risk and is against best practices.  
+Suggestion: Move your API key to an environment variable and reference it using `process.env`.
+
+      'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY,
+
+---
+
+Line: 40  
+Severity: Minor  
+Issue: Typo in variable name: should be `encodedString`, not `endcodedString`.  
+Suggestion: Rename for better readability.
+
+        const encodedString = res.data.stdout;
+        if (encodedString != null) {
+          decodedoutput = atob(encodedString);
+        } else {
+          decodedoutput = atob(res.data.stderr);
+        }
+
+---
+
+Line: 45  
+Severity: Major  
+Issue: You are decoding `res.data.stderr` without checking for null or undefined, and without knowing if it’s base64-encoded. This can throw errors if both outputs are null or if the encoding flag does not match.  
+Suggestion: Add checks and ensure atob is only used when output is available and base64 encoding is expected.
+
+        if (res.data.stdout) {
+          decodedoutput = atob(res.data.stdout);
+        } else if (res.data.stderr) {
+          decodedoutput = atob(res.data.stderr);
+        } else {
+          decodedoutput = '';
+        }
+
+---
+
+Line: 53  
+Severity: Minor  
+Issue: If the second API call fails, only console logging occurs. Users aren't notified of errors, which leads to poor UX and debugging issues.  
+Suggestion: Provide user feedback if errors occur.
+
+    } catch (err) {
+      alert("An error occurred during submission. Please try again.");
+      console.log(err);
+    }
+
+---
+
+Line: 78, 85, 91, 96  
+Severity: Info  
+Issue: Magic numbers for language IDs make the code harder to maintain and less clear to future maintainers. Use a constant mapping for languages.  
+Suggestion: Extract to a constant map.
+
+const LANGUAGE_IDS = {
+  'C++': 52,
+  'Java': 62,
+  'Python': 71,
+  'Javascript': 63,
+};
+// in JSX:
+<option value={LANGUAGE_IDS['C++']}>C++</option>
+
+---
+
+Line: 111  
+Severity: Minor  
+Issue: Inline styles for layout lead to poor maintainability and hard-to-find styling issues.  
+Suggestion: Move styles to CSS and use a className.
+
+<div className="button-container">
+  <button type="submit">Submit</button>
+</div>
+/* CSS */
+.button-container {
+  text-align: center;
+  padding-block: 3rem;
+}
+
+---
+
+# MermaidJS Sequence Diagram
+
+sequenceDiagram
+  participant U as User
+  participant R as React App (page1.js)
+  participant J as Judge0 API
+  participant B as Backend API
+
+  U->>R: Fill Form and Submit
+  R->>J: POST /submissions (code, language, stdin)
+  J-->>R: Response (output or error)
+  R->>B: POST /api/add (username, code, stdin, language)
+  B-->>R: Submission saved
+  R-->>U: Alert "Submission Done"\nNavigate to /page2
+
+---
+
+## Summary of Main Points
+
+- **Critical**: Move all API secrets (e.g., RapidAPI keys) to environment variables. Never check them into source code.
+- **Major**: Input encoding must be consistent with the API `base64_encoded` flag. Likewise, output decoding logic must check for content, encoding, and handle errors gracefully.
+- **Minor/Info**: Use constants/maps for language IDs and extract repeated/inline styles to CSS for clarity and maintainability.
+- **Minor**: Provide user feedback on backend submission errors.
+
+Please address these issues for a secure, robust, and maintainable codebase. Let me know if you’d like sample refactored code.
     params: {
       base64_encoded: 'false',
       fields: '*',
