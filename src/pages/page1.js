@@ -69,7 +69,7 @@ Use a secure proxy/backend to keep API keys secret and remove them from frontend
         <div className='name'>
           <label htmlFor="inputName" >Username:</label>
           <input type="text" name="username" placeholder="harry" onChange={handleChange} required/>
-        </div>
+Move static inline styles to class selectors in `App.css`.
         <div className='lang'>
           <label htmlFor="lang">Language:</label>
           <select name='language' onChange={handleChange} required>
