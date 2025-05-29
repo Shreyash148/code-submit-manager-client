@@ -22,7 +22,6 @@ export default function Page1() {
     params: {
       base64_encoded: 'false',
       fields: '*',
-      wait:'false'
     },
     headers: {
       'content-type': 'application/json',
