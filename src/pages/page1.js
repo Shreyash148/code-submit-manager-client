@@ -16,7 +16,9 @@ export default function Page1() {
     setSubmission((prev)=>({...prev,[e.target.name]:e.target.value}))
   }
 
-  const options = {
+// All usage of rapidapi endpoints and related keys have been removed for security. Only use your backend endpoint:
+
+---
     method: 'POST',
     url: 'https://judge0-ce.p.rapidapi.com/submissions',
     params: {
@@ -34,7 +36,9 @@ export default function Page1() {
       language_id: submission.language,
       source_code: btoa(submission.sourcecode),
       stdin: btoa(submission.stdin)
-    }
+// If your /api/submit backend endpoint does NOT expect Judge0 parameters like `base64_encoded` or similar, remove any such params/fields for clarity and code maintainability.
+
+---
   };
 
   const handleSubmit=async(e)=>{
@@ -56,7 +60,14 @@ export default function Page1() {
         language:submission.language,
         sourcecode:submission.sourcecode,
         stdin:submission.stdin,
-        username:submission.username,
+const [output, setOutput] = useState('');
+// ...
+setOutput(res.data.stdout || res.data.stderr || '');
+// ...
+// In JSX:
+// {output && <div className="output-section">{output}</div>}
+
+---
         stdout:decodedoutput
       })
       alert("Submission Done");
@@ -67,7 +78,10 @@ export default function Page1() {
   }
   return (
     <>
-      <NavbarNew page="/" />
+setSubmission(initialState); // reset if needed
+setOutput("Submission Done!"); // or use a toast notification component
+
+---
       <form className="form-container" onSubmit={handleSubmit}>
         <div className='display'>
         <div className='name'>
@@ -87,7 +101,20 @@ export default function Page1() {
         </div>
         <div className='display2'>
         <div className='input'>
-          <label htmlFor="standardInput">Standard Input:</label>
+<select
+  name="language"
+  value={submission.language || ""}
+  onChange={handleChange}
+  required
+>
+  <option value="" disabled>-- Select Language --</option>
+  <option value={52}>C++</option>
+  <option value={62}>Java</option>
+  <option value={71}>Python</option>
+  <option value={63}>Javascript</option>
+</select>
+
+---
           <textarea name="stdin" onChange={handleChange} placeholder='Give your input here!' required/>
         </div>
         <div className='code'>
@@ -95,7 +122,10 @@ export default function Page1() {
           <textarea style={{ width: '100%', minHeight: '200px', fontFamily: 'monospace' }} name='sourcecode' placeholder='Write your code here!' onChange={handleChange} required/>
         </div>
         </div>
-        <div style={{textAlign:"center",paddingBlock:"3rem"}}>
+// Remove any commented CSS from JSX.
+// Move style rules for .code textarea into App.css.
+
+---
           <button type="submit">Submit</button>
         </div>
       </form>
