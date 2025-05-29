@@ -39,7 +39,6 @@ const convertdate=(date)=>{
         <th>Language</th>
         <th>Standard Input</th>
         <th>Source Code</th>
-        <th>Output</th>
         </tr></thead>
         <tbody>
         {submission.map((submission, index) => (
