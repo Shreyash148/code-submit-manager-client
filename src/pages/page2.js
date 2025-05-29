@@ -11,7 +11,6 @@ export default function Page2() {
     const fetchSubmissions= async() => {
       try{
         const res= await axios.get("https://code-submit-manager-server.vercel.app/api/show");
-        return res;
       }catch(err){
         console.log(err);
       }
@@ -49,6 +48,7 @@ const convertdate=(date)=>{
                 <td>{submission.username}</td>
                 <td>{submission.language===52?"C++":submission.language===71?"Python":submission.language===62?"Java":submission.language===63?"Javascript":"N/A"}</td>
                 <td>{submission.stdin}</td>
+                <td>{submission.sourcecode.substring(0,100)}</td>
                 <td>{submission.stdout}</td>
               </tr>
             ))}
