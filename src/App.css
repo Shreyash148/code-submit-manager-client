@@ -47,7 +47,7 @@
   height: 20rem;
 }
 .form-container select,.form-container input[type="text"]{
-  min-width: none;
+  min-width: 0;
 }
 .form-container button {
   background-color: #ff0000;
