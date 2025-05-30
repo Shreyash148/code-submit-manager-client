@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+
 import {useEffect} from 'react';
 import {useState} from 'react';
 import '../App.css'
-import { NavbarNew } from '../components/Navbar'
+import axios from 'axios';
+
 
 export default function Page2() {
   const [submission,setSubmission]=useState([]);
   useEffect(()=>{
     const fetchSubmissions= async() => {
-      try{
+const fetchSubmissions = async () => {
+  try {
+    const res = await axios.get("https://code-submit-manager-server.vercel.app/api/show");
+    setSubmission(res.data);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
         const res= await axios.get("https://code-submit-manager-server.vercel.app/api/show");
         return res;
       }catch(err){
@@ -16,9 +26,11 @@ export default function Page2() {
       }
     } 
     fetchSubmissions();
-  },[]);
+<tr key={submission._id}>
+
 const convertdate=(date)=>{
-  let ts = new Date(date);
+let new_timezone = 'Asia/Kolkata';
+
   let new_timezone = 'Mumbai';
   let options = { timeZone: new_timezone, hour12: false, weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
   let formatted_date = ts.toLocaleString('en-US', options);
@@ -41,10 +53,20 @@ const convertdate=(date)=>{
         <th>Output</th>
         </tr></thead>
         <tbody>
-        {submission.map((submission, index) => (
+<td>
+  {submission.sourcecode.length > 100
+    ? submission.sourcecode.substring(0, 100) + '…'
+    : submission.sourcecode}
+</td>
+
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>{convertdate(submission.created_at)}</td>
+const [error, setError] = useState(null);
+// Inside catch
+setError('Failed to load submissions.');
+// In render
+{error && <div className='error'>{error}</div>}
+
                 <td>{submission.username}</td>
                 <td>{submission.language===52?"C++":submission.language===71?"Python":submission.language===62?"Java":submission.language===63?"Javascript":"N/A"}</td>
                 <td>{submission.stdin}</td>
