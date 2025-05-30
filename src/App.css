@@ -4,28 +4,28 @@
 .manage-box table{
   width:100%;
   border-collapse: collapse;
-  box-shadow: 2px 2px 4px 2px grey;
+  box-shadow: 2px 2px 4px 2px rgb(215, 173, 173);
   text-align: center;
 }
 .manage-box th{
   padding:0.75rem;
-  background-color: rgb(220, 166, 166);
+  background-color: rgb(136, 94, 94);
 }
 .manage-box td{
   padding:0.75rem;
-  border-bottom: 1px solid grey;
+  border-bottom: 2px solid rgb(80, 78, 78);
 }
 
 /* page1.css */
 .form-container {
   margin: 0 auto;
   padding-block: 4rem;
-  padding-inline: 5rem;
+  padding-inline: 6rem;
 }
 
 .form-container label {
   font-weight: bold;
-  font-size: large;
+  font-size: medium;
 }
 
 .form-container input[type="text"],
@@ -33,12 +33,12 @@
 .form-container textarea {
   padding: 10px;
   margin: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #513b3b;
   border-radius: 5px;
   box-shadow: 4px 2px 6px 6px #c95f5f40;
   font-family: 'Poppins', sans-serif;
   font-style: normal;
-  font-size: 16px;
+  font-size: 20px;
   line-height: normal;
 }
 

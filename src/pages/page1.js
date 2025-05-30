@@ -17,15 +17,12 @@ export default function Page1() {
   }
 
   const options = {
-    method: 'POST',
     url: 'https://judge0-ce.p.rapidapi.com/submissions',
     params: {
-      base64_encoded: 'true',
+      base64_encoded: 'false',
       fields: '*',
-      wait:'true'
     },
     headers: {
-      'content-type': 'application/json',
       'Content-Type': 'application/json',
       'X-RapidAPI-Key': '768be3d199msh0cf59e6e372e153p131e34jsn3a97a3b820b4',
       'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
@@ -57,7 +54,6 @@ export default function Page1() {
         sourcecode:submission.sourcecode,
         stdin:submission.stdin,
         username:submission.username,
-        stdout:decodedoutput
       })
       alert("Submission Done");
       navigate("/page2");
