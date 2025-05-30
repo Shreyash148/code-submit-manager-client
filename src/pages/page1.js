@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { NavbarNew } from '../components/Navbar';
 import '../App.css';
-import axios from 'axios';
+import '../app.css'; // or continue using 'App.css' if project matches that naming elsewhere.
+
 import { useNavigate } from 'react-router-dom';
 
 export default function Page1() {
@@ -9,15 +10,45 @@ export default function Page1() {
   const [submission,setSubmission]=useState({
     language:null,
     sourcecode:"",
-    stdin:"",
+const [submission, setSubmission] = useState({
+  language: "",
+  sourcecode: "",
+  stdin: "",
+  username: ""
+});
+
     username:""
   })
-  const handleChange=(e)=>{
+const handleChange = (e) => {
+  setSubmission((prev) => ({
+    ...prev,
+    [e.target.name]: e.target.value.trimStart() // Optionally sanitize further
+  }))
+}
+
     setSubmission((prev)=>({...prev,[e.target.name]:e.target.value}))
   }
 
   const options = {
-    url: 'https://judge0-ce.p.rapidapi.com/submissions',
+const options = {
+  method: 'POST',
+  url: 'https://judge0-ce.p.rapidapi.com/submissions',
+  params: {
+    base64_encoded: 'false',
+    fields: '*',
+  },
+  headers: {
+    'Content-Type': 'application/json',
+    'X-RapidAPI-Key': '768be3d199msh0cf59e6e372e153p131e34jsn3a97a3b820b4',
+    'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+  },
+  data: {
+    language_id: submission.language,
+    source_code: btoa(submission.sourcecode),
+    stdin: btoa(submission.stdin)
+  }
+};
+
     params: {
       base64_encoded: 'false',
       fields: '*',
@@ -32,7 +63,8 @@ export default function Page1() {
       source_code: btoa(submission.sourcecode),
       stdin: btoa(submission.stdin)
     }
-  };
+// Move 'X-RapidAPI-Key' to a secure backend, and call backend endpoint instead.
+
 
   const handleSubmit=async(e)=>{
     e.preventDefault();
@@ -42,14 +74,31 @@ export default function Page1() {
         const res=await axios.request(options);
         const endcodedString=res.data.stdout
         if(endcodedString!=null){
-          decodedoutput=atob(endcodedString)
+let decodedoutput;
+try {
+  const res = await axios.request(options);
+  const stdout = res.data.stdout;
+  const stderr = res.data.stderr;
+  if (stdout !== null && stdout !== undefined) {
+    decodedoutput = atob(stdout);
+  } else if (stderr !== null && stderr !== undefined) {
+    decodedoutput = atob(stderr);
+  } else {
+    decodedoutput = "No output received.";
+  }
+} catch (error) {
+  console.log(error);
+}
+
         }else{
           decodedoutput=atob(res.data.stderr)
         }
       } catch (error) {
         console.log(error);
       }
-      await axios.post("https://code-submit-manager-server.vercel.app/api/add",{
+// If not needed, remove variable
+// Otherwise, consider passing as part of submission
+
         language:submission.language,
         sourcecode:submission.sourcecode,
         stdin:submission.stdin,
@@ -64,12 +113,26 @@ export default function Page1() {
   return (
     <>
       <NavbarNew page="/" />
-      <form className="form-container" onSubmit={handleSubmit}>
+if (!submission.username.trim() || !submission.language || !submission.sourcecode.trim()) {
+  alert("Please fill all required fields properly.");
+  return;
+}
+
         <div className='display'>
         <div className='name'>
           <label htmlFor="inputName" >Username:</label>
           <input type="text" name="username" placeholder="harry" onChange={handleChange} required/>
-        </div>
+const [isSubmitting, setIsSubmitting] = useState(false);
+// In handleSubmit
+setIsSubmitting(true);
+try {
+  // ... submit logic
+} finally {
+  setIsSubmitting(false);
+}
+// In JSX:
+<button type="submit" disabled={isSubmitting}>{isSubmitting ? "Submitting..." : "Submit"}</button>
+
         <div className='lang'>
           <label htmlFor="lang">Language:</label>
           <select name='language' onChange={handleChange} required>

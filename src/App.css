@@ -45,7 +45,10 @@
 .form-container textarea {
   min-width: 100%;
   height: 20rem;
+.form-container select,.form-container input[type="text"]{
+  /* min-width: none; */
 }
+
 .form-container select,.form-container input[type="text"]{
   min-width: none;
 }
@@ -65,7 +68,14 @@
 
 .form-container textarea {
   min-height: 150px;
-  resize: vertical;
+:root {
+  --primary-color: #ff0000;
+  --secondary-color: rgb(136, 94, 94);
+  --accent-color: #513b3b;
+  --shadow-color: #c95f5f40;
+}
+/* Update usage of the specific colors in your existing classnames */
+
 }
 .name,.lang,.input,.code{
   padding:5px;
