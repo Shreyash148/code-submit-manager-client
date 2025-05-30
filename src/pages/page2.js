@@ -19,7 +19,7 @@ export default function Page2() {
   },[]);
 const convertdate=(date)=>{
   let ts = new Date(date);
-  let new_timezone = 'Asia/Kolkata';
+  let new_timezone = 'Mumbai';
   let options = { timeZone: new_timezone, hour12: false, weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
   let formatted_date = ts.toLocaleString('en-US', options);
   return formatted_date;
