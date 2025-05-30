@@ -3,7 +3,6 @@ import {useEffect} from 'react';
 import {useState} from 'react';
 import '../App.css'
 import { NavbarNew } from '../components/Navbar'
-import axios from 'axios'
 
 export default function Page2() {
   const [submission,setSubmission]=useState([]);
