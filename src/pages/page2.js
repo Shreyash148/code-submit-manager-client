@@ -2,7 +2,8 @@ import React from 'react'
 import {useEffect} from 'react';
 import {useState} from 'react';
 import '../App.css'
-import { NavbarNew } from '../components/Navbar'
+import axios from 'axios';
+
 
 export default function Page2() {
   const [submission,setSubmission]=useState([]);
@@ -22,8 +23,10 @@ const convertdate=(date)=>{
   let new_timezone = 'Mumbai';
   let options = { timeZone: new_timezone, hour12: false, weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
   let formatted_date = ts.toLocaleString('en-US', options);
-  return formatted_date;
-}
+let new_timezone = 'Asia/Kolkata';
+
+// Replace or supplement console.log with user-visible notification or send to log aggregator
+
   return (
     <>
     <NavbarNew page="/page2"/>
@@ -34,11 +37,19 @@ const convertdate=(date)=>{
         <tr>
         <th>Sr. No.</th>
         <th>Submission Time</th>
-        <th>Username</th>
+const languageMap = { 52: 'C++', 71: 'Python', 62: 'Java', 63: 'Javascript' };
+// inside the map:
+<td>{languageMap[submission.language] || "N/A"}</td>
+
         <th>Language</th>
         <th>Standard Input</th>
         <th>Source Code</th>
-        <th>Output</th>
+// In your CSS (App.css or similar):
+td {
+  word-break: break-word;
+  max-width: 300px;
+}
+
         </tr></thead>
         <tbody>
         {submission.map((submission, index) => (
